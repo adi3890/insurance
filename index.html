@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Insurance</title>
+</head>
+<script src="jquery.js"></script>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery('#expense, #emergency, #education, #marriage, #retirement').click(function(){
+      id = jQuery(this).attr('id');
+      page_setup(id);
+    });
+    jQuery('.header').click(function(){
+      main_menu();
+    });
+  });
+
+  function page_setup(id){
+    jQuery('.product').each(function(i,e){
+      jQuery(e).fadeOut();
+    });
+    color = jQuery('#'+id).css('background-color');
+    jQuery('body').css('background-color',color);
+  }
+
+  function main_menu(){
+    jQuery('body').css('background-color','#DC9759');
+    jQuery('.product').each(function(i,e){
+      jQuery(e).fadeIn();
+    });
+  }
+</script>
+<style type="text/css">
+  body{
+    font:Verdana, Arial, Helvetica, sans-serif 30px;
+    padding: 0;
+    margin: 0;
+    background-color: #DC9759;
+  }
+  .header{
+    padding: 10px;
+    height: 50px;
+    background-color: white;
+    text-align: center;
+  }
+  .container{
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+
+  }
+  .product{
+    display: block;
+    display: inline-block;
+    height: 30px;
+    width: 200px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    line-height: 30px;
+    border-radius: 100px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin: 5px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  #expense{
+    background-color: #EDEF39;
+  }
+  #emergency{
+    background-color: #ADF724;
+  }
+  #education{
+    background-color: #49E9BD;
+  }
+  #marriage{
+    background-color: #33FF33;
+  }
+  #retirement{
+    background-color: #42C0FB;
+  }
+</style>
+<body>
+<div class="header"><img src="logo.png"></div>
+<div class="container">
+  <div class="product" id="expense">Home Expenses</div>
+  <div class="product" id="emergency">Emergency Expenses</div>
+  <div class="product" id="education">Child Education</div>
+  <div class="product" id="marriage">Child Marriage</div>
+  <div class="product" id="retirement">Retirement</div>
+</div>
+
+</body>
+
+</html>
