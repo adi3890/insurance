@@ -9,27 +9,37 @@
 <script src="jquery.js"></script>
 <script type="text/javascript">
   jQuery(document).ready(function(){
+
     jQuery('#expense, #emergency, #education, #marriage, #retirement').click(function(){
       id = jQuery(this).attr('id');
       page_setup(id);
     });
+
     jQuery('.header').click(function(){
       main_menu();
+    });
+
+    jQuery('.expense_amount').keyup(function(){
+      jQuery('.security_amount').val(parseInt(jQuery(this).val()) * 200);
     });
   });
 
   function page_setup(id){
     jQuery('.product').each(function(i,e){
-      jQuery(e).fadeOut();
+      jQuery(e).fadeOut('fast');
     });
     color = jQuery('#'+id).css('background-color');
+    jQuery('#'+id+'-detail').fadeIn();
     jQuery('body').css('background-color',color);
   }
 
   function main_menu(){
     jQuery('body').css('background-color','#DC9759');
     jQuery('.product').each(function(i,e){
-      jQuery(e).fadeIn();
+      jQuery(e).fadeIn('fast');
+    });
+    jQuery('.description').each(function(i,e){
+      jQuery(e).fadeOut('fast');
     });
   }
 </script>
@@ -44,7 +54,6 @@
     padding: 10px;
     height: 50px;
     background-color: white;
-    text-align: center;
   }
   .container{
     padding: 20px;
@@ -56,7 +65,7 @@
     display: block;
     display: inline-block;
     height: 30px;
-    width: 200px;
+    width: 250px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
     line-height: 30px;
     border-radius: 100px;
@@ -86,6 +95,11 @@
   #retirement{
     background-color: #42C0FB;
   }
+
+  .description{
+    text-align: left;
+    display: none;
+  }
 </style>
 <body>
 <div class="header"><img src="logo.png"></div>
@@ -95,6 +109,19 @@
   <div class="product" id="education">Child Education</div>
   <div class="product" id="marriage">Child Marriage</div>
   <div class="product" id="retirement">Retirement</div>
+  <form>
+  <div class="description" id="expense-detail">
+    <h3>Home Expenses</h3>
+    <label>
+      Home Expense<br/>
+      <input type='number' class='expense_amount'/><br/>
+    </label>
+    <label>
+      Expected Security Amount<br/>
+      <input type='textbox' class='security_amount' readonly="readonly" /><br/>
+    </label>
+  </div>
+  <form>
 </div>
 
 </body>
