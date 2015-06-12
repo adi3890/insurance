@@ -20,13 +20,16 @@
     });
 
     jQuery('.expense_amount').keyup(function(){
+      if(jQuery(this).val() == ''){
+        jQuery(this).val(0);
+      }
       jQuery('.security_amount').val(parseInt(jQuery(this).val()) * 200);
     });
   });
 
   function page_setup(id){
     jQuery('.product').each(function(i,e){
-      jQuery(e).fadeOut('fast');
+      jQuery(e).hide();
     });
     color = jQuery('#'+id).css('background-color');
     jQuery('#'+id+'-detail').fadeIn();
@@ -39,7 +42,7 @@
       jQuery(e).fadeIn('fast');
     });
     jQuery('.description').each(function(i,e){
-      jQuery(e).fadeOut('fast');
+      jQuery(e).hide();
     });
   }
 </script>
@@ -49,6 +52,13 @@
     padding: 0;
     margin: 0;
     background-color: #DC9759;
+  }
+
+  input{
+    border-radius: 5px;
+    border: 2px #aee solid;
+    padding: 5px;
+    font-size: 20px;
   }
   .header{
     padding: 10px;
@@ -100,6 +110,10 @@
     text-align: left;
     display: none;
   }
+  .element{
+    display: inline-block;
+    margin-right: 5px;
+  }
 </style>
 <body>
 <div class="header"><img src="logo.png"></div>
@@ -112,14 +126,18 @@
   <form>
   <div class="description" id="expense-detail">
     <h3>Home Expenses</h3>
+    <div class="element">
     <label>
-      Home Expense<br/>
+      <b>Home Expense</b><br/>
       <input type='number' class='expense_amount'/><br/>
     </label>
+    </div>
+    <div class="element">
     <label>
-      Expected Security Amount<br/>
+      <b>Expected Security Amount</b><br/>
       <input type='textbox' class='security_amount' readonly="readonly" /><br/>
     </label>
+    </div>
   </div>
   <form>
 </div>
