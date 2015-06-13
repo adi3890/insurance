@@ -22,9 +22,80 @@
     jQuery('.expense_amount').keyup(function(){
       if(jQuery(this).val() == ''){
         jQuery(this).val(0);
+      } else {
+        jQuery(this).val(parseInt(jQuery(this).val()));
       }
       jQuery('.security_amount').val(parseInt(jQuery(this).val()) * 200);
     });
+
+    jQuery('.emergency_amount').keyup(function(){
+      if(jQuery(this).val() == ''){
+        jQuery(this).val(0);
+      } else {
+        jQuery(this).val(parseInt(jQuery(this).val()));
+      }
+      jQuery('.emergency_security_amount').val(parseInt(jQuery(this).val()) * 3);
+    });
+
+    jQuery('.current_education_amount').keyup(function(){
+      if(jQuery(this).val() == ''){
+        jQuery(this).val(0);
+      } else {
+        jQuery(this).val(parseInt(jQuery(this).val()));
+      }
+      jQuery('.education_required_amount').val(Math.ceil(parseInt(jQuery(this).val()) * Math.pow(1.06, jQuery('.education_duration').val())));
+    });
+
+    jQuery('.education_duration').change(function(){
+      jQuery('.education_duration_value').val(jQuery(this).val());
+      jQuery('.education_required_amount').val(Math.ceil(parseInt(jQuery('.current_education_amount').val()) * Math.pow(1.06, jQuery('.education_duration').val())));
+    });
+
+    jQuery('.education_duration_value').change(function(){
+      jQuery('.education_duration').val(jQuery(this).val());
+      jQuery('.education_duration').trigger('change');
+    });
+
+    jQuery('.current_marriage_amount').keyup(function(){
+      if(jQuery(this).val() == ''){
+        jQuery(this).val(0);
+      } else {
+        jQuery(this).val(parseInt(jQuery(this).val()));
+      }
+      jQuery('.marriage_required_amount').val(Math.ceil(parseInt(jQuery(this).val()) * Math.pow(1.06, jQuery('.marriage_duration').val())));
+    });
+
+    jQuery('.marriage_duration').change(function(){
+      jQuery('.marriage_duration_value').val(jQuery(this).val());
+      jQuery('.marriage_required_amount').val(Math.ceil(parseInt(jQuery('.current_marriage_amount').val()) * Math.pow(1.06, jQuery('.marriage_duration').val())));
+    });
+
+    jQuery('.marriage_duration_value').change(function(){
+      jQuery('.marriage_duration').val(jQuery(this).val());
+      jQuery('.marriage_duration').trigger('change');
+    });
+
+    jQuery('.current_retirement_amount').keyup(function(){
+      if(jQuery(this).val() == ''){
+        jQuery(this).val(0);
+      } else {
+        jQuery(this).val(parseInt(jQuery(this).val()));
+      }
+      jQuery('.retirement_required_amount').val(Math.ceil(parseInt(jQuery(this).val()) * Math.pow(1.06, jQuery('.retirement_duration').val())));
+      jQuery('.retirement_security_amount').val(parseInt(jQuery('.retirement_required_amount').val()) * 200);
+    });
+
+    jQuery('.retirement_duration').change(function(){
+      jQuery('.retirement_duration_value').val(jQuery(this).val());
+      jQuery('.retirement_required_amount').val(Math.ceil(parseInt(jQuery('.current_retirement_amount').val()) * Math.pow(1.06, jQuery('.retirement_duration').val())));
+      jQuery('.retirement_security_amount').val(parseInt(jQuery('.retirement_required_amount').val()) * 200);
+    });
+
+    jQuery('.retirement_duration_value').change(function(){
+      jQuery('.retirement_duration').val(jQuery(this).val());
+      jQuery('.retirement_duration').trigger('change');
+    });
+
   });
 
   function page_setup(id){
@@ -54,7 +125,7 @@
     background-color: #DC9759;
   }
 
-  input{
+  #numeric_field{
     border-radius: 5px;
     border: 2px #aee solid;
     padding: 5px;
@@ -64,12 +135,14 @@
     padding: 10px;
     height: 50px;
     background-color: white;
+    width: 100%;
+    position: fixed;
+    top: 0px;
   }
   .container{
     padding: 20px;
-    margin: 0 auto;
+    margin: 70px auto;
     text-align: center;
-
   }
   .product{
     display: block;
@@ -112,7 +185,6 @@
   }
   .element{
     display: inline-block;
-    margin-right: 5px;
   }
 </style>
 <body>
@@ -129,13 +201,100 @@
     <div class="element">
     <label>
       <b>Home Expense</b><br/>
-      <input type='number' class='expense_amount'/><br/>
+      <input type='number' id="numeric_field" class='expense_amount'/><br/>
     </label>
     </div>
     <div class="element">
     <label>
       <b>Expected Security Amount</b><br/>
-      <input type='textbox' class='security_amount' readonly="readonly" /><br/>
+      <input type='textbox' id="numeric_field" class='security_amount' readonly="readonly" /><br/>
+    </label>
+    </div>
+  </div>
+  <div class="description" id="emergency-detail">
+    <h3>Emergency Expenses</h3>
+    <div class="element">
+    <label>
+      <b>Emergency Expense</b><br/>
+      <input type='number' id="numeric_field" class='emergency_amount'/><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Expected Security Amount</b><br/>
+      <input type='textbox' id="numeric_field" class='emergency_security_amount' readonly="readonly" /><br/>
+    </label>
+    </div>
+  </div>
+  <div class="description" id="education-detail">
+    <h3>Child Education</h3>
+    <div class="element">
+    <label>
+      <b>Current Amount</b><br/>
+      <input type='number' id="numeric_field" class='current_education_amount'/><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Duration</b><br/>
+      <input type='range' class='education_duration' min="1" max="40" value='10'/><br/>
+      <input type='number' class='education_duration_value' id="numeric_field" min="1" max="40" value="10" /><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Required Amount</b><br/>
+      <input type='textbox' id="numeric_field" class='education_required_amount' readonly="readonly" /><br/>
+    </label>
+    </div>
+  </div>
+  <div class="description" id="marriage-detail">
+    <h3>Child Marriage</h3>
+    <div class="element">
+    <label>
+      <b>Current Amount</b><br/>
+      <input type='number' id="numeric_field" class='current_marriage_amount'/><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Duration</b><br/>
+      <input type='range' class='marriage_duration' min="1" max="40" value='10'/><br/>
+      <input type='number' class='marriage_duration_value' id="numeric_field" min="1" max="40" value="10" /><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Required Amount</b><br/>
+      <input type='textbox' id="numeric_field" class='marriage_required_amount' readonly="readonly" /><br/>
+    </label>
+    </div>
+  </div>
+  <div class="description" id="retirement-detail">
+    <h3>Retirement</h3>
+    <div class="element">
+    <label>
+      <b>Current Amount</b><br/>
+      <input type='number' id="numeric_field" class='current_retirement_amount'/><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Duration</b><br/>
+      <input type='range' class='retirement_duration' min="1" max="40" value='10'/><br/>
+      <input type='number' class='retirement_duration_value' id="numeric_field" min="1" max="40" value="10" /><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Required Amount</b><br/>
+      <input type='textbox' id="numeric_field" class='retirement_required_amount' readonly="readonly" /><br/>
+    </label>
+    </div>
+    <div class="element">
+    <label>
+      <b>Security Amount</b><br/>
+      <input type='textbox' id="numeric_field" class='retirement_security_amount' readonly="readonly" /><br/>
     </label>
     </div>
   </div>
